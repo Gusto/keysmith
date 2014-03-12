@@ -1,0 +1,15 @@
+GIT
+  remote: git://github.com/lian/shamir-secret-sharing.git
+  revision: 648562b2515f170047ddddde2c79e8b3426be523
+  specs:
+    shamir-secret-sharing (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  shamir-secret-sharing!
