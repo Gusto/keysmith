@@ -1,1 +1,3 @@
 /keypieces/*.keypiece
+.DS_Store
+.bundle
