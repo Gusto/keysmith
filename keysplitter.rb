@@ -4,7 +4,6 @@ Bundler.require
 
 keypieces = Dir['keypieces/*.keypiece']
 
-# We're making keypieces from a secret
 if keypieces.empty?
   puts "\nNo keypieces detected, so I'm assuming you want to split a key. Answer these questions:\n"
 
