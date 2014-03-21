@@ -34,12 +34,9 @@ if keypieces.empty?
   puts "\nDone! The keypieces have been written to the directory of the same name. Be sure to run this script again to test that they can reconstruct the key."
 
 else
-  puts "\nKeypieces detected, so going to attempt to reconstruct the key. What is the size of the quorum?"
-  quorum = gets.chomp.to_i
-
   keypieces.map! do |piece_filename|
     File.open(piece_filename, 'r') do |handle|
-      handle.read
+      handle.read.chomp
     end
   end
 
