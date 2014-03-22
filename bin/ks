@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'commander/import'
+require File.expand_path('../../lib/keysplitter', __FILE__)
+
+program :version, '0.1.0'
+program :description, 'Command line tool for "Shamirs Secret Sharing"'
+
+command :generate do |c|
+  c.syntax = 'ks generate [options]'
+  c.summary = 'Split a key into multiple pieces'
+  c.description = 'Split a secret into multiple parts. Will prompt for user input if you pass in no arguments.'
+  c.example 'description', 'ks generate --pieces 5 --quorum 2 --key abcd1234'
+  c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
+  c.option '-p', '--pieces PIECES', Integer, 'Number of pieces to generate'
+  c.option '-q', '--quorum QUORUM', Integer, 'Number of parts required'
+  c.option '-n', '--piece-names KEY1,KEY2,...', Array, 'Names of key pieces (comma separated, no spaces)'
+  c.option '-k', '--key KEY', 'Key to split'
+  c.action do |args, options|
+    options.default keypiece_dir: '.'
+
+    options.pieces  = ask("How many keypieces do you want? ", Integer) unless options.pieces
+    options.quorum  = ask("How many pieces are needed to reconstruct the key? ", Integer) unless options.quorum
+    options.key     = ask "Please paste in your key. (Leave blank to generate one.)" unless options.key
+
+    while options.piece_names.nil? || options.piece_names.size != options.pieces
+      if options.piece_names && options.piece_names.size > 0 && options.piece_names.size != options.pieces
+        puts "You passed in #{options.piece_names.size} holder names, but there are #{options.pieces} key pieces!"
+      end
+      options.piece_names = ask_for_array 'Names of key pieces (space separated): '
+    end
+
+    KeySplitter.generate(options)
+  end
+end
+
+command :reconstruct do |c|
+  c.syntax = 'ks reconstruct [options]'
+  c.summary = 'Reconstruct a key from multiple parts'
+  c.description = 'Reconstructs a key from multiple parts in --keypiece-dir, and prints the reconstructed key.'
+  c.example 'description', 'ks reconstruct --keypiece-dir ./keypieces'
+  c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
+  c.action do |args, options|
+    options.default keypiece_dir: '.'
+    key = KeySplitter.reconstruct(options)
+    puts key if key
+  end
+end
+
+command :encrypt do |c|
+  c.syntax = 'ks encrypt [options]'
+  c.summary = 'Encrypt a folder'
+  c.description = 'Reconstructs a key from keypieces, and encrypts a folder. Alternatively, pass in a key via --key KEY'
+  c.example 'description', 'ks encrypt --keypiece-dir ./keypieces --input-dir ./encrypted --output encrypted.tar.gz.enc'
+  c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
+  c.option '-k', '--key KEY', 'Encryption key'
+  c.option '-i', '--input-dir DIR', 'Directory to encrypt'
+  c.option '-o', '--output FILENAME', 'Filename for encrypted contents'
+
+  c.action do |args, options|
+    options.default keypiece_dir: '.', output: "encrypted.tar.gz.enc"
+    KeySplitter.encrypt(options)
+  end
+end
+
+command :decrypt do |c|
+  c.syntax = 'ks decrypt [options]'
+  c.summary = 'Decrypt an encrypted folder'
+  c.description = 'Reconstructs a key from keypieces, and decrypts an encrypted folder'
+  c.example 'description', 'ks decrypt --keypiece-dir ./keypieces --input encrypted.tar.gz.enc --output-dir ./encrypted'
+  c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
+  c.option '-k', '--key KEY', 'Encryption key'
+  c.option '-i', '--input DIR', 'Path to encrypted file'
+  c.option '-o', '--output-dir DIR', 'Output Directory'
+  c.action do |args, options|
+    options.default keypiece_dir: '.', output_dir: './encrypted'
+    KeySplitter.decrypt(options)
+  end
+end
+
+command :clean do |c|
+  c.syntax = 'ks clean [options]'
+  c.summary = 'Securely delete keypieces'
+  c.description = 'Securely delete keypieces'
+  c.example 'description', 'command example'
+  c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
+  c.action do |args, options|
+    KeySplitter.clean(options)
+  end
+end

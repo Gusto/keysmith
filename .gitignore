@@ -1,3 +1,5 @@
 /keypieces/*.keypiece
 .DS_Store
 .bundle
+*.tar.gz.enc
+/encrypted

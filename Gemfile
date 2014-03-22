@@ -1,4 +1,5 @@
 ruby '2.1.1'
 source "https://rubygems.org"
 
-gem 'shamir-secret-sharing', github: 'lian/shamir-secret-sharing'
+# Specify your gem's dependencies in keysplitter.gemspec
+gemspec
