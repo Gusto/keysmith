@@ -53,7 +53,7 @@ command :encrypt do |c|
   c.description = 'Reconstructs a key from keypieces, and encrypts a folder. Alternatively, pass in a key via --key KEY'
   c.example 'description', 'ks encrypt --keypiece-dir ./keypieces --input-dir ./encrypted --output encrypted.tar.gz.enc'
   c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
-  c.option '-k', '--key KEY', 'Encryption key'
+  c.option '-k', '--key KEY', 'Encryption key (optional)'
   c.option '-i', '--input-dir DIR', 'Directory to encrypt'
   c.option '-o', '--output FILENAME', 'Filename for encrypted contents'
 
@@ -69,7 +69,7 @@ command :decrypt do |c|
   c.description = 'Reconstructs a key from keypieces, and decrypts an encrypted folder'
   c.example 'description', 'ks decrypt --keypiece-dir ./keypieces --input encrypted.tar.gz.enc --output-dir ./encrypted'
   c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
-  c.option '-k', '--key KEY', 'Encryption key'
+  c.option '-k', '--key KEY', 'Encryption key (optional)'
   c.option '-i', '--input DIR', 'Path to encrypted file'
   c.option '-o', '--output-dir DIR', 'Output Directory'
   c.action do |args, options|

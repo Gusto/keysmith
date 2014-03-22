@@ -39,8 +39,8 @@ Be sure to run 'ks reconstruct --keypiece-dir #{options.keypiece_dir}' to test t
     end
 
     def encrypt(options)
-      unless File.exists?("./encrypted")
-        puts "./encrypted does not exist. Please create the ./encrypted folder and add the files you want to encrypt."
+      unless File.exists?(options.input_dir)
+        puts "#{options.input_dir} does not exist. Please create the #{options.input_dir} folder and add the files you want to encrypt."
         exit 1
       end
 
@@ -52,8 +52,8 @@ Be sure to run 'ks reconstruct --keypiece-dir #{options.keypiece_dir}' to test t
     end
 
     def decrypt(options)
-      unless File.exists?("encrypted.tar.gz.enc")
-        puts "./encrypted.tar.gz.enc does not exist!"
+      unless File.exists?(options.input)
+        puts "#{options.input} does not exist!"
         exit 1
       end
 
