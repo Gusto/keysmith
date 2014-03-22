@@ -347,34 +347,4 @@ if $0 == __FILE__
     end
 
   end
-
-=begin
-  require 'pp'
-
-  pp shares = ShamirSecretSharing::Base58.split("hello", 6, 3)
-  pp ShamirSecretSharing::Base58.combine(shares[0...3])
-
-  pp shares = ShamirSecretSharing::Base64.split("hello", 6, 3)
-  pp ShamirSecretSharing::Base64.combine(shares[0...3])
-
-  pp shares = ShamirSecretSharing::Hex.split("hello", 6, 3)
-  pp ShamirSecretSharing::Hex.combine(shares[0...3])
-
-  pp shares = ShamirSecretSharing::Number.split(123, 6, 3)
-  pp ShamirSecretSharing::Number.combine(shares[0...3])
-
-
-  shares, encrypted = ShamirSecretSharing::Base58.encrypt("A"*32, 6, 3, 96)
-  pp [shares, encrypted]
-  p ShamirSecretSharing::Base58.decrypt(shares.shuffle[0...3], encrypted)
-
-  shares, encrypted = ShamirSecretSharing::Base64.encrypt("A"*32, 6, 3, 96)
-  pp [shares, encrypted]
-  p ShamirSecretSharing::Base64.decrypt(shares.shuffle[0...3], encrypted)
-
-  shares, encrypted = ShamirSecretSharing::Hex.encrypt("A"*32, 6, 3, 96)
-  pp [shares, encrypted]
-  p ShamirSecretSharing::Hex.decrypt(shares.shuffle[0...3], encrypted)
-=end
-
 end

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'keysplitter/version'
+require 'keysmith/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "keysplitter"
-  spec.version       = Keysplitter::VERSION
+  spec.name          = "keysmith"
+  spec.version       = KeySmith::VERSION
   spec.authors       = ["Nick DeMonner", "Nathan Broadbent"]
   spec.email         = ["ndemonner@zenpayroll.com"]
   spec.summary       = %q{Command line tool for Shamir's Secret Sharing}

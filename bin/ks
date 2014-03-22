@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'commander/import'
-require File.expand_path('../../lib/keysplitter', __FILE__)
+require File.expand_path('../../lib/keysmith', __FILE__)
 
-program :version, '0.1.0'
+program :version, '0.2.0'
 program :description, 'Command line tool for "Shamirs Secret Sharing"'
 
 command :generate do |c|
@@ -30,7 +30,7 @@ command :generate do |c|
       options.piece_names = ask_for_array 'Names of key pieces (space separated): '
     end
 
-    KeySplitter.generate(options)
+    KeySmith.generate(options)
   end
 end
 
@@ -42,7 +42,7 @@ command :reconstruct do |c|
   c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
   c.action do |args, options|
     options.default keypiece_dir: '.'
-    key = KeySplitter.reconstruct(options)
+    key = KeySmith.reconstruct(options)
     puts key if key
   end
 end
@@ -59,7 +59,7 @@ command :encrypt do |c|
 
   c.action do |args, options|
     options.default keypiece_dir: '.', output: "encrypted.tar.gz.enc"
-    KeySplitter.encrypt(options)
+    KeySmith.encrypt(options)
   end
 end
 
@@ -74,7 +74,7 @@ command :decrypt do |c|
   c.option '-o', '--output-dir DIR', 'Output Directory'
   c.action do |args, options|
     options.default keypiece_dir: '.', output_dir: './encrypted'
-    KeySplitter.decrypt(options)
+    KeySmith.decrypt(options)
   end
 end
 
@@ -85,6 +85,6 @@ command :clean do |c|
   c.example 'description', 'command example'
   c.option '-d', '--keypiece-dir DIR', 'Keypieces Directory (default ./)'
   c.action do |args, options|
-    KeySplitter.clean(options)
+    KeySmith.clean(options)
   end
 end

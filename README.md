@@ -1,4 +1,4 @@
-# KeySplitter
+# KeySmith
 
 Split a secret using Shamir's Secret Sharing, and encrypt / decrypt files with it.
 

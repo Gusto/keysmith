@@ -1,7 +1,7 @@
 require File.expand_path('../shamir-secret-sharing', __FILE__)
 require 'securerandom'
 
-class KeySplitter
+class KeySmith
   class << self
     def generate(options)
       options.key = SecureRandom.hex(128) if options.key.nil? || options.key == ""
