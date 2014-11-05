@@ -1,8 +1,7 @@
-GIT
-  remote: git://github.com/lian/shamir-secret-sharing.git
-  revision: 648562b2515f170047ddddde2c79e8b3426be523
+PATH
+  remote: .
   specs:
-    shamir-secret-sharing (0.0.1)
+    keysmith (0.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -10,10 +9,13 @@ GEM
     commander (4.1.6)
       highline (~> 1.6.11)
     highline (1.6.21)
+    rake (10.3.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.5)
   commander
-  shamir-secret-sharing!
+  keysmith!
+  rake
